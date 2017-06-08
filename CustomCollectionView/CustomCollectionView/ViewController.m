@@ -10,6 +10,7 @@
 #import "CollectionViewController.h"
 #import "HorizontalLineLayout.h"
 #import "VerticalLineLayout.h"
+#import "CircleLayout.h"
 
 static NSString *tableViewCellID = @"tableViewCell";
 
@@ -55,6 +56,7 @@ static NSString *tableViewCellID = @"tableViewCell";
 
     [_layoutArray addObject:@"HorizontalLineLayout"];
     [_layoutArray addObject:@"VerticalLineLayout"];
+    [_layoutArray addObject:@"CircleLayout"];
 }
 
 - (void)setupPhotosArray {
@@ -77,11 +79,13 @@ static NSString *tableViewCellID = @"tableViewCell";
         layout = [[HorizontalLineLayout alloc] init];
     } else if ([[_layoutArray objectAtIndex:indexPath.item] isEqualToString:@"VerticalLineLayout"]) {
         layout = [[VerticalLineLayout alloc] init];
+    } else if ([[_layoutArray objectAtIndex:indexPath.item] isEqualToString:@"CircleLayout"]) {
+        layout = [[CircleLayout alloc] init];
     }
 
     CollectionViewController *controller = [[CollectionViewController alloc] initWithCollectionViewLayout:layout];
     [self.navigationController pushViewController:controller animated:YES];
-    controller.dataSource = [[NSArray alloc] initWithArray:self.photosArray];
+    controller.dataSource = [self.photosArray mutableCopy];
 }
 
 #pragma mark - UITableViewDataSource

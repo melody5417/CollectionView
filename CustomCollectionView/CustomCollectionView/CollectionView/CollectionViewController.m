@@ -21,6 +21,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [self.collectionView addGestureRecognizer:tapRecognizer];
+
     [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
 
@@ -83,5 +86,31 @@ static NSString * const reuseIdentifier = @"Cell";
 	
 }
 */
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)sender {
+
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        CGPoint initialPinchPoint = [sender locationInView:self.collectionView];
+        NSIndexPath* tappedCellPath = [self.collectionView indexPathForItemAtPoint:initialPinchPoint];
+        if (tappedCellPath!=nil)
+        {
+            [self.dataSource removeObjectAtIndex:tappedCellPath.item];
+            [self.collectionView performBatchUpdates:^{
+                [self.collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:tappedCellPath]];
+
+            } completion:nil];
+        }
+        else
+        {
+            UIImage *placeholderImage = [UIImage imageNamed:@"placeHolder"];
+            [self.dataSource insertObject:placeholderImage atIndex:tappedCellPath.item];
+            [self.collectionView performBatchUpdates:^{
+                [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+            } completion:nil];
+        }
+    }
+}
+
 
 @end
