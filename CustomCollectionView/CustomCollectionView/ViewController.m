@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "CollectionViewController.h"
 #import "HorizontalLineLayout.h"
+#import "VerticalLineLayout.h"
 
 static NSString *tableViewCellID = @"tableViewCell";
 
@@ -53,6 +54,7 @@ static NSString *tableViewCellID = @"tableViewCell";
     _layoutArray = [NSMutableArray array];
 
     [_layoutArray addObject:@"HorizontalLineLayout"];
+    [_layoutArray addObject:@"VerticalLineLayout"];
 }
 
 - (void)setupPhotosArray {
@@ -73,6 +75,8 @@ static NSString *tableViewCellID = @"tableViewCell";
     UICollectionViewLayout* layout = nil;
     if ([[_layoutArray objectAtIndex:indexPath.item] isEqualToString:@"HorizontalLineLayout"]) {
         layout = [[HorizontalLineLayout alloc] init];
+    } else if ([[_layoutArray objectAtIndex:indexPath.item] isEqualToString:@"VerticalLineLayout"]) {
+        layout = [[VerticalLineLayout alloc] init];
     }
 
     CollectionViewController *controller = [[CollectionViewController alloc] initWithCollectionViewLayout:layout];

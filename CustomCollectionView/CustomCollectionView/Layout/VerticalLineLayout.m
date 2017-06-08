@@ -1,30 +1,24 @@
 //
-//  HorizontalLineLayout.m
-//  TripleCollection
+//  VerticalLineLayout.m
+//  CustomCollectionView
 //
 //  Created by yiqiwang(王一棋) on 2017/6/8.
 //  Copyright © 2017年 melody5417. All rights reserved.
 //
 
-#import "HorizontalLineLayout.h"
+#import "VerticalLineLayout.h"
 
 #define ITEM_SIZE 200.0
-
-@implementation HorizontalLineLayout
-
 #define ACTIVE_DISTANCE 200
-#define ZOOM_FACTOR 0.3
+#define ZOOM_FACTOR 0.5
 
-- (id)init {
-    self = [super init];
-    if (self) {
+@implementation VerticalLineLayout
+
+- (instancetype)init {
+    if (self = [super init]) {
         self.itemSize = CGSizeMake(ITEM_SIZE, ITEM_SIZE);
-        self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-
-        // 上部和下部缩进200
-        self.sectionInset = UIEdgeInsetsMake(200, 0.0, 200, 0.0);
-        // 每个item在水平方向的最小间距
-        self.minimumLineSpacing = 50.0;
+        self.minimumLineSpacing = 200;
+        self.minimumInteritemSpacing = 200;
     }
     return self;
 }
@@ -34,17 +28,15 @@
     return YES;
 }
 
-
 // 当前item放大
 -(NSArray*)layoutAttributesForElementsInRect:(CGRect)rect {
     NSArray* array = [super layoutAttributesForElementsInRect:rect];
-    CGRect visibleRect;
-    visibleRect.origin = self.collectionView.contentOffset;
-    visibleRect.size = self.collectionView.bounds.size;
+    CGFloat verticalCenter = CGRectGetHeight(self.collectionView.bounds) / 2.0;
 
     for (UICollectionViewLayoutAttributes* attributes in array) {
         if (CGRectIntersectsRect(attributes.frame, rect)) {
-            CGFloat distance = CGRectGetMidX(visibleRect) - attributes.center.x;
+            CGPoint attributesCenter = [self.collectionView convertPoint:attributes.center toView:self.collectionView.window];
+            CGFloat distance = verticalCenter - attributesCenter.y;
             CGFloat normalizedDistance = distance / ACTIVE_DISTANCE;
             if (ABS(distance) < ACTIVE_DISTANCE) {
                 CGFloat zoom = 1 + ZOOM_FACTOR*(1 - ABS(normalizedDistance));
@@ -56,22 +48,26 @@
     return array;
 }
 
-
 // 自动对齐到网络
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
     CGFloat offsetAdjustment = MAXFLOAT;
-    CGFloat horizontalCenter = proposedContentOffset.x + (CGRectGetWidth(self.collectionView.bounds) / 2.0);
+    CGFloat verticalCenter = proposedContentOffset.y + (CGRectGetHeight(self.collectionView.bounds) / 2.0);
 
-    CGRect targetRect = CGRectMake(proposedContentOffset.x, 0.0, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height);
+    CGRect targetRect = CGRectMake(proposedContentOffset.x,
+                                   proposedContentOffset.y,
+                                   self.collectionView.bounds.size.width,
+                                   self.collectionView.bounds.size.height);
+
     NSArray* array = [super layoutAttributesForElementsInRect:targetRect];
 
     for (UICollectionViewLayoutAttributes* layoutAttributes in array) {
-        CGFloat itemHorizontalCenter = layoutAttributes.center.x;
-        if (ABS(itemHorizontalCenter - horizontalCenter) < ABS(offsetAdjustment)) {
-            offsetAdjustment = itemHorizontalCenter - horizontalCenter;
+        CGFloat itemVerticalCenter = layoutAttributes.center.y;
+        if (ABS(itemVerticalCenter - verticalCenter) < ABS(offsetAdjustment)) {
+            offsetAdjustment = itemVerticalCenter - verticalCenter;
         }
     }
-    return CGPointMake(proposedContentOffset.x + offsetAdjustment, proposedContentOffset.y);
+    return CGPointMake(proposedContentOffset.x,
+                       proposedContentOffset.y + offsetAdjustment);
 }
 
 @end

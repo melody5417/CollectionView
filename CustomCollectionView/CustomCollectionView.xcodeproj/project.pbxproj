@@ -47,6 +47,7 @@
 		4F4081121EE97035003C9FB1 /* 9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4F4080F21EE97035003C9FB1 /* 9.jpg */; };
 		4F4081151EE978D6003C9FB1 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4081141EE978D6003C9FB1 /* CollectionViewController.m */; };
 		4F4081181EE97B9F003C9FB1 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4081171EE97B9F003C9FB1 /* CollectionViewCell.m */; };
+		4F40811B1EE97CEC003C9FB1 /* VerticalLineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F40811A1EE97CEC003C9FB1 /* VerticalLineLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,8 @@
 		4F4081141EE978D6003C9FB1 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		4F4081161EE97B9F003C9FB1 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		4F4081171EE97B9F003C9FB1 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		4F4081191EE97CEC003C9FB1 /* VerticalLineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalLineLayout.h; sourceTree = "<group>"; };
+		4F40811A1EE97CEC003C9FB1 /* VerticalLineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalLineLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +160,8 @@
 			children = (
 				4F4080CA1EE96E8C003C9FB1 /* HorizontalLineLayout.h */,
 				4F4080CB1EE96E8C003C9FB1 /* HorizontalLineLayout.m */,
+				4F4081191EE97CEC003C9FB1 /* VerticalLineLayout.h */,
+				4F40811A1EE97CEC003C9FB1 /* VerticalLineLayout.m */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 				4F4080CD1EE96E8C003C9FB1 /* HorizontalLineLayout.m in Sources */,
 				4F4081151EE978D6003C9FB1 /* CollectionViewController.m in Sources */,
 				4F4080B41EE96E3C003C9FB1 /* AppDelegate.m in Sources */,
+				4F40811B1EE97CEC003C9FB1 /* VerticalLineLayout.m in Sources */,
 				4F4080B11EE96E3C003C9FB1 /* main.m in Sources */,
 				4F4080D11EE96EFD003C9FB1 /* ViewController.m in Sources */,
 			);
